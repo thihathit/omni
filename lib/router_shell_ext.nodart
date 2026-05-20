@@ -1,0 +1,32 @@
+import 'package:go_router/go_router.dart';
+import 'package:omni/router_info.dart';
+
+enum RiderRoute {
+  home(RIDER_HOME),
+  profile(RIDER_PROFILE);
+
+  final String path;
+  const RiderRoute(this.path);
+}
+
+enum MerchantRoute {
+  home(MERCHANT_HOME),
+  profile(MERCHANT_PROFILE);
+
+  final String path;
+  const MerchantRoute(this.path);
+}
+
+extension RiderNavX on StatefulNavigationShell {
+  // Checks if the current route matches the Enum
+  bool isRiderRouteActive(RiderRoute tab) => currentIndex == tab.index;
+
+  // Switches branches using the Enum index instead of an arbitrary integer
+  void goRiderRoute(RiderRoute tab) => goBranch(tab.index);
+}
+
+extension MerchantNavX on StatefulNavigationShell {
+  bool isMerchantRouteActive(MerchantRoute tab) => currentIndex == tab.index;
+
+  void goMerchantRoute(MerchantRoute tab) => goBranch(tab.index);
+}
