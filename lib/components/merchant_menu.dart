@@ -3,12 +3,13 @@ import 'package:go_router/go_router.dart';
 import 'package:omni/router_info.dart';
 
 class MerchantMenu extends StatelessWidget {
-  final StatefulNavigationShell navigationShell;
-  const MerchantMenu({required this.navigationShell, super.key});
+  const MerchantMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final String currentPath = GoRouterState.of(context).matchedLocation;
+    final String currentPath = GoRouter.of(
+      context,
+    ).routeInformationProvider.value.uri.path;
 
     return Container(
       height: 64,
@@ -16,12 +17,17 @@ class MerchantMenu extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildItem(context, 'Store Portal', MERCHANT_HOME, currentPath),
+          _buildItem(
+            context,
+            'Store Portal',
+            MERCHANT_HOME,
+            currentPath == MERCHANT_HOME,
+          ),
           _buildItem(
             context,
             'Merchant Profile',
             MERCHANT_PROFILE,
-            currentPath,
+            currentPath == MERCHANT_PROFILE,
           ),
         ],
       ),
@@ -31,16 +37,12 @@ class MerchantMenu extends StatelessWidget {
   Widget _buildItem(
     BuildContext context,
     String label,
-    String targetPath,
-    String currentPath,
+    String path,
+    bool isSelected,
   ) {
-    final bool isSelected = currentPath == targetPath;
-
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () {
-        GoRouter.of(context).go(targetPath);
-      },
+      onTap: () => context.go(path),
       child: Center(
         child: Text(
           label,

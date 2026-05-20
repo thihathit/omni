@@ -9,6 +9,6 @@ class RiderHome extends StatelessWidget {
 
     const body = Center(child: text);
 
-    return Container(child: body);
+    return Container(child: body, color: const Color(0xFF222222));
   }
 }

@@ -17,10 +17,8 @@ final router = GoRouter(
 
     // --- RIDER PORTAL (Nested Stateful Workspace) ---
     StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) => RouterShell(
-        navigationShell: navigationShell,
-        menu: RiderMenu(navigationShell: navigationShell),
-      ),
+      builder: (context, state, navigationShell) =>
+          RouterShell(navigationShell: navigationShell, menu: RiderMenu()),
       branches: [
         StatefulShellBranch(
           routes: [
@@ -43,10 +41,8 @@ final router = GoRouter(
 
     // --- MERCHANT PORTAL (Nested Stateful Workspace) ---
     StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) => RouterShell(
-        navigationShell: navigationShell,
-        menu: MerchantMenu(navigationShell: navigationShell),
-      ),
+      builder: (context, state, navigationShell) =>
+          RouterShell(navigationShell: navigationShell, menu: MerchantMenu()),
       branches: [
         StatefulShellBranch(
           routes: [

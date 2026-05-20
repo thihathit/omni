@@ -9,6 +9,6 @@ class RiderProfile extends StatelessWidget {
 
     const body = Center(child: text);
 
-    return Container(child: body);
+    return Container(child: body, color: const Color.fromARGB(255, 65, 2, 2));
   }
 }

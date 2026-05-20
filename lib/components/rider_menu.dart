@@ -3,13 +3,13 @@ import 'package:go_router/go_router.dart';
 import 'package:omni/router_info.dart';
 
 class RiderMenu extends StatelessWidget {
-  final StatefulNavigationShell navigationShell;
-  const RiderMenu({required this.navigationShell, super.key});
+  const RiderMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // 1. Get the current active URL path directly from GoRouter's current frame state
-    final String currentPath = GoRouterState.of(context).matchedLocation;
+    final String currentPath = GoRouter.of(
+      context,
+    ).routeInformationProvider.value.uri.path;
 
     return Container(
       height: 64,
@@ -17,9 +17,18 @@ class RiderMenu extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          // 2. Pass strings directly to match your Router Config perfectly
-          _buildItem(context, 'Home Dashboard', RIDER_HOME, currentPath),
-          _buildItem(context, 'My Profile', RIDER_PROFILE, currentPath),
+          _buildItem(
+            context,
+            'Home Dashboard',
+            RIDER_HOME,
+            currentPath == RIDER_HOME,
+          ),
+          _buildItem(
+            context,
+            'My Profile',
+            RIDER_PROFILE,
+            currentPath == RIDER_PROFILE,
+          ),
         ],
       ),
     );
@@ -28,18 +37,12 @@ class RiderMenu extends StatelessWidget {
   Widget _buildItem(
     BuildContext context,
     String label,
-    String targetPath,
-    String currentPath,
+    String path,
+    bool isSelected,
   ) {
-    // String matching handles everything safely without indexing math
-    final bool isSelected = currentPath == targetPath;
-
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: () {
-        // Go directly to the path string. GoRouter handles branch switching under the hood!
-        GoRouter.of(context).go(targetPath);
-      },
+      onTap: () => context.go(path),
       child: Center(
         child: Text(
           label,
